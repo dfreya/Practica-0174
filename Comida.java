@@ -15,21 +15,17 @@ public class Comida
     /**
      * Constructor for objects of class Comida
      */
-    public Comida()
+    public Comida(String nombre, int caloriasQueTiene)
     {
-        // initialise instance variables
-        x = 0;
+        nombreComida=nombre;
+        calorias=caloriasQueTiene;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     *
      */
-    public int sampleMethod(int y)
+    public int getCalorias()
     {
-        // put your code here
-        return x + y;
+        return calorias;
     }
 }

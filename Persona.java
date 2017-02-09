@@ -7,35 +7,67 @@
  */
 public class Persona
 {
-    // guerda el nombre de la persona.
+    // guarda el nombre de la persona.
     private String nombrePersona;
-    // guerda si la persona es hobmbre o mujer.
+    // guarda si la persona es hobmbre o mujer.
     private boolean hombreOMujer;
-    // guerda el peso de la persona.
+    // guarda el peso de la persona.
     private int peso;
-    // guerda la altura de la persona.
+    // guarda la altura de la persona.
     private int altura;
-    // guerda los años de la persona.
+    // guarda los años de la persona.
     private int year;
+    
+    // guarda las calorias que ha comido a lo largo del dia.
+    private int caloriasIngeridas;
+    // guarda las maxaima de calorias que puede comer un hombre.
+    private int metabolismoHombre;
+    // guarda las maxaima de calorias que puede comer un hombre.
+    private int metabolismoMujer;
 
     /**
      * Constructor for objects of class Persona
      */
-    public Persona()
+    public Persona(String nombre, boolean sexoHombre, int pesoKg, int alturaCm, int edad)
     {
-        // initialise instance variables
-        x = 0;
+        nombrePersona= nombre;
+        hombreOMujer=sexoHombre;
+        peso=pesoKg;
+        altura=alturaCm;
+        year=edad;
+        caloriasIngeridas= 0;
+        metabolismoHombre=0;
+        metabolismoMujer=0;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     *
      */
-    public int sampleMethod(int y)
+    public int comer(Comida comida)
     {
-        // put your code here
-        return x + y;
+        int haComido=-1;
+        if (hombreOMujer ==true){
+            //Hombres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) + 5
+            metabolismoHombre=(10*peso)+(6*altura)+(5*year)+5;
+            if (metabolismoHombre>=caloriasIngeridas){
+                haComido=comida.getCalorias();
+                caloriasIngeridas= caloriasIngeridas+comida.getCalorias();
+            }
+            
+        }
+        else{
+            //Mujeres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) - 161
+            metabolismoMujer=(10*peso)+(6*altura)+(5*year)-161;
+            if(metabolismoMujer>=caloriasIngeridas){
+                haComido=comida.getCalorias();
+                caloriasIngeridas= caloriasIngeridas+comida.getCalorias();
+            }
+
+        }
+        return haComido;
+    }
+    
+    public int getCaloriasIngeridas(){
+        return caloriasIngeridas;
     }
 }
