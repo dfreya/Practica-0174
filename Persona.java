@@ -17,13 +17,11 @@ public class Persona
     private int altura;
     // guarda los años de la persona.
     private int year;
-    
+
     // guarda las calorias que ha comido a lo largo del dia.
     private int caloriasIngeridas;
     // guarda las maxaima de calorias que puede comer un hombre.
-    private int metabolismoHombre;
-    // guarda las maxaima de calorias que puede comer un hombre.
-    private int metabolismoMujer;
+    private int metabolismo;
 
     /**
      * Constructor for objects of class Persona
@@ -36,8 +34,18 @@ public class Persona
         altura=alturaCm;
         year=edad;
         caloriasIngeridas= 0;
-        metabolismoHombre=0;
-        metabolismoMujer=0;
+        sexo();
+    }
+
+    private void sexo(){
+        if (hombreOMujer ==true){
+            //Hombres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) + 5
+            metabolismo=(10*peso)+(6*altura)+(5*year)+5;
+        }
+        else{
+            //Mujeres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) - 161
+            metabolismo=(10*peso)+(6*altura)+(5*year)-161;
+        }
     }
 
     /**
@@ -46,28 +54,32 @@ public class Persona
     public int comer(Comida comida)
     {
         int haComido=-1;
-        if (hombreOMujer ==true){
-            //Hombres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) + 5
-            metabolismoHombre=(10*peso)+(6*altura)+(5*year)+5;
-            if (metabolismoHombre>=caloriasIngeridas){
-                haComido=comida.getCalorias();
-                caloriasIngeridas= caloriasIngeridas+comida.getCalorias();
-            }
-            
-        }
-        else{
-            //Mujeres = (10 x peso en kg) + (6 × altura en cm) - (5 × edad en años) - 161
-            metabolismoMujer=(10*peso)+(6*altura)+(5*year)-161;
-            if(metabolismoMujer>=caloriasIngeridas){
-                haComido=comida.getCalorias();
-                caloriasIngeridas= caloriasIngeridas+comida.getCalorias();
-            }
-
+        if (metabolismo>=caloriasIngeridas){
+            haComido=comida.getCalorias();
+            caloriasIngeridas= caloriasIngeridas+comida.getCalorias();
         }
         return haComido;
     }
-    
+
     public int getCaloriasIngeridas(){
         return caloriasIngeridas;
     }
+
+    public String contestar(String texto){
+        String contesta="";
+        if (metabolismo>caloriasIngeridas){
+            if(texto.length()%3==0){
+                contesta="SI";
+            }
+            else{
+                contesta="NO";
+            }
+        }
+        if (metabolismo<caloriasIngeridas || texto.contains(nombrePersona)){
+            contesta=texto.toUpperCase();
+        }
+        System.out.println(contesta);
+        return contesta;
+    }
+
 }
